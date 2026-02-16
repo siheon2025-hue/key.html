@@ -2,29 +2,57 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>광고 후 키 발급</title>
+  <title>랜덤 광고 후 키 발급</title>
   <style>
-    body { font-family: Arial; padding: 20px; background-color: #f0f0f0; }
-    button { padding: 10px 20px; margin-top: 20px; }
-    #keyDisplay { font-weight: bold; color: #0070f0; margin-top: 10px; }
+    body { font-family: Arial; padding: 20px; background:#111; color:white; text-align:center; }
+    button { padding:10px 20px; margin-top:20px; }
+    video { margin-top:20px; }
   </style>
 </head>
 <body>
-  <h1>광고를 10초 이상 보면 키 발급!</h1>
 
-  <!-- 광고 영역 -->
-  <video id="adVideo" width="400" controls>
-    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-    브라우저가 video 태그를 지원하지 않습니다.
-  </video>
+<h1>광고 10초 시청 후 키 발급</h1>
 
-  <!-- 키 발급 버튼 -->
-  <button id="getKeyBtn" disabled>키 발급받기</button>
-  <p id="keyDisplay"></p>
+<video id="adVideo" width="400" controls></video>
 
-  <script>
-    const video = document.getElementById('adVideo');
-    const btn = document.getElementById('getKeyBtn');
+<br>
+<button id="getKeyBtn" disabled>키 발급받기</button>
+<p id="keyDisplay"></p>
+
+<script>
+const ads = [
+  "https://www.w3schools.com/html/mov_bbb.mp4",
+  "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
+];
+
+const video = document.getElementById("adVideo");
+const btn = document.getElementById("getKeyBtn");
+const keyDisplay = document.getElementById("keyDisplay");
+
+// 🎲 랜덤 광고 선택
+video.src = ads[Math.floor(Math.random() * ads.length)];
+
+video.addEventListener("timeupdate", () => {
+  if(video.currentTime >= 10){
+    btn.disabled = false;
+  }
+});
+
+// 🔐 고정 키 (Roblox와 동일해야 함)
+function generateKey(){
+  return "DELTA-1234ABCD";
+}
+
+btn.onclick = () => {
+  const key = generateKey();
+  keyDisplay.innerText = "발급된 키: " + key;
+  navigator.clipboard.writeText(key);
+  alert("키가 복사되었습니다!");
+};
+</script>
+
+</body>
+</html>    const btn = document.getElementById('getKeyBtn');
     const keyDisplay = document.getElementById('keyDisplay');
 
     // 광고 10초 시청 후 버튼 활성화
